@@ -15,7 +15,7 @@ void setup() {
   size(700, 700);
   background(360);
 
-  scale(20);
+
   // set color mode
   colorMode(HSB, 360, 100, 100);
 
@@ -58,9 +58,9 @@ void setup() {
   //Walls Left
 
   rowCounter = 0;//start
-  while (rowCounter < 1) {//end
+  while (rowCounter < 35) {//end
     colCounter = 0;//start
-    while (colCounter < 35) {//end
+    while (colCounter < 1) {//end
       board[rowCounter][colCounter] = WALL * OPEN_SPACE;
       colCounter += 1;
     }
@@ -69,7 +69,7 @@ void setup() {
 
   //Walls Right
 
-  rowCounter = 34;//start
+  rowCounter = 0;//start
   while (rowCounter < 35) {//end
     colCounter = 34;//start
     while (colCounter < 35) {//end
@@ -82,26 +82,27 @@ void setup() {
 
 void draw() {
   background(360);
-  scale(20);
+
   //draws board
   loadPixels();  
   // Loop through every pixel column
-  for (int column = 0; column < width; column++) {
+  for (int column = 0; column < width / 20; column++) {
     // Loop through every pixel row
-    for (int row = 0; row < height; row++) {
+    for (int row = 0; row < height / 20; row++) {
 
       // Use the formula to find the 1D location
+
       int loc = column + row * width;
 
       // Draw the board 
-      if (loc == OPEN_SPACE) { // open space
+      if (board[row][column] == OPEN_SPACE) { // open space
         pixels[loc] = color(0, 80, 90);//red
-      } else if (loc == WALL * OPEN_SPACE) { // safe area 
+      } else if (board[row][column] == WALL * OPEN_SPACE) { // safe area 
         pixels[loc] = color(60, 80, 90);
       } else { 
-         pixels[loc] = color(180, 80, 90);
+        pixels[loc] = color(180, 80, 90);
+      }
     }
+    updatePixels();
   }
-  updatePixels();
-}
 }
