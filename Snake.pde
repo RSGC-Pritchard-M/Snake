@@ -7,10 +7,12 @@ private static final int PLAYER = 3;
 private static final int FOOD = 5;
 private static final int OPEN_SPACE = 7;
 
+
+
 int[][] board = new int[35][35];
 int rowCounter;
 int colCounter;
-
+int playerX = 10, playerY = 10;
 void setup() {
   size(700, 700);
   background(360);
@@ -78,7 +80,19 @@ void setup() {
     }
     rowCounter += 1;
   }
+
+  //Player
+  rowCounter = playerY;//start
+  while (rowCounter < playerY) {//end
+    colCounter = playerX;//start
+    while (colCounter < playerX) {//end
+      board[rowCounter][colCounter] = PLAYER * OPEN_SPACE;
+      colCounter += 1;
+    }
+    rowCounter += 1;
+  }
 }
+
 
 void draw() {
   background(360);
