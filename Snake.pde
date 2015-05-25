@@ -8,11 +8,16 @@ private static final int FOOD = 5;
 private static final int OPEN_SPACE = 7;
 private static final int PLAYER_WIDTH = 1;
 private static final int PLAYER_HEIGHT = 1;
-
+private static final int MOVING_UP = 10;
+private static final int MOVING_DOWN = 11;
+private static final int MOVING_LEFT = 12;
+private static final int MOVING_RIGHT = 13;
 int[][] board = new int[35][35];
 int rowCounter;
 int colCounter;
 int playerX = 10, playerY = 10;
+int currentDirection = MOVING_UP;
+
 void setup() {
   size(700, 700);
   background(360);
@@ -97,6 +102,8 @@ void setup() {
 void draw() {
   background(360);
 
+//if(currentDirection == MOVING_UP ){
+
   //draws board
   loadPixels();  
   // Loop through every pixel column
@@ -122,6 +129,7 @@ void draw() {
     updatePixels();
   }
 }
+}
 void keyPressed()
 
 {
@@ -129,8 +137,6 @@ void keyPressed()
   {
     if (keyCode == LEFT)
     {
-
-
       //Keeps player on screen
       if (playerX > 1) {
 
@@ -148,7 +154,11 @@ void keyPressed()
         col = playerX + PLAYER_WIDTH -1;
         while (row < playerY + PLAYER_HEIGHT) {//end
           board[row][col] = board[row][col] / PLAYER;
-          row += 1;
+          row += 1; 
+        if(keyCode == LEFT){
+        currentDirection = MOVING_LEFT;
+        println("left");
+        }
         }
       }
       //After updating board chage poition
@@ -172,6 +182,10 @@ void keyPressed()
         while (row < playerY + PLAYER_HEIGHT) {//end
           board[row][col] = board[row][col] / PLAYER;
           row += 1;
+        if(keyCode == RIGHT){
+        currentDirection = MOVING_RIGHT;
+        println("Right");
+        }
         }
 
         // Update players position after array
@@ -197,6 +211,10 @@ void keyPressed()
         while (col < playerX + PLAYER_WIDTH) {//end
           board[row][col] = board[row][col] / PLAYER;
           col += 1;
+        if(keyCode == UP){
+        currentDirection = MOVING_UP;
+        println("Up");
+        }
         }
         //Update after board
         playerY -= 1;
@@ -205,9 +223,6 @@ void keyPressed()
     {
 
       if (playerY < 182) {
-
-
-
 
         // add at bottom
         // println("moving down");
@@ -223,10 +238,27 @@ void keyPressed()
         while (col < playerX + PLAYER_WIDTH) {//end
           board[row][col] = board[row][col] / PLAYER;
           col += 1;
+        if(keyCode == DOWN){
+        currentDirection = MOVING_DOWN;
+        println("Down");
+        }
         }
         //Update after board refreshed
         playerY += 1;
       }
     }
   }
+  if (currentDirection == MOVING_UP){
+    println("ChangeUP");
+  }
+  if (currentDirection == MOVING_DOWN){
+    println("ChangeDOWN");
+  }
+  if (currentDirection == MOVING_LEFT){
+    println("ChangeLEFT");
+  }
+  if (currentDirection == MOVING_RIGHT){
+    println("ChangeRIGHT");
+  }
+  
 }
