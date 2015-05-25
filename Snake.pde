@@ -142,19 +142,21 @@ void draw() {
     }
     updatePixels();
   }
-  
+
   if (currentDirection == MOVING_UP) {
-    playerY - 1= playerY;
-    // int row = playerY;//start
-    // int col = playerX;
-    // while (col < playerX + PLAYER_WIDTH) {//end
-    //   board[row][col] = board[row][col] * PLAYER;
-    //   col += 1;
-    // }
+    //playerY - 1= playerY;
+    int row = playerY;//start
+    int col = playerX;
+    while (col < playerX + PLAYER_WIDTH) {//end
+      board[row][col] = board[row][col] * PLAYER;
+      col += 1;
+    }
+  }
     // while (playerY < 1) {
     //   playerY = playerY --;
     // }
-  }
+    
+  
   if (currentDirection == MOVING_DOWN) {
     int row = playerY;//start
     int col = playerX;
@@ -178,6 +180,20 @@ void draw() {
       board[row][col] = board[row][col] * PLAYER;
       row += 1;
     }
+  }
+  //checking for colisions
+  int col = 0;
+  while (col < 35) {
+    int row =0;
+    while (row < 35) {
+      if (board[row][col] % WALL == 0 && board[row][col] % PLAYER == 0) {
+        println("row is: " + row);
+        println("col is: " + col);
+        noLoop();
+      }
+      row += 1;
+    }
+    col +=1;
   }
 }
 
